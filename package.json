@@ -3,6 +3,7 @@
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development nodemon src/app.ts",
 		"swagger": "cross-env NODE_ENV=development ts-node src/swagger/swagger.autogen.ts",
+		"main": "cross-env NODE_ENV=production ts-node src/app.ts",
 		"debug": "cross-env NODE_ENV=development node --inspect-brk -r ts-node/register src/app.ts"
 	},
 	"dependencies": {
