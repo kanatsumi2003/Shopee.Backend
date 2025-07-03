@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+  nodejs-app:
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shopee-backend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: shopee-rabbitmq
+    ports:
+      - "5660:5672"
+      - "15660:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: rabbitmq123
+    networks:
+      - shopee-rabbitmq_network
+
+#  mongo:
+#    image: mongo:7
+#    container_name: mongo-rs
+#    ports:
+#      - "27017:27017"
+#    command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
+#    volumes:
+#      - mongo-data:/data/db
+#      - ./init-replica.js:/docker-entrypoint-initdb.d/init-replica.js
+#    networks:
+#      - mongo-net
+#
+#volumes:
+#  mongo-data:
+
+networks:
+  shopee-rabbitmq_network:
+    driver: bridge
+#  mongo-net:
+#    driver: bridge

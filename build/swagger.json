@@ -1,0 +1,591 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"BaseResponse_void_": {
+				"properties": {
+					"statusCode": {
+						"type": "number",
+						"format": "double",
+						"default": 200
+					},
+					"message": {
+						"type": "string",
+						"default": "Successful"
+					},
+					"data": {
+						"nullable": true,
+						"default": null
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ConfirmEmailRequest": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"emailOtp": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"emailOtp"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RecoveryPasswordRequest": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"token": {
+						"type": "string"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"newPassword": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"token",
+					"timestamp",
+					"newPassword"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GetProfileResponse": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					},
+					"dateOfBirth": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseResponse_GetProfileResponse_": {
+				"properties": {
+					"statusCode": {
+						"type": "number",
+						"format": "double",
+						"default": 200
+					},
+					"message": {
+						"type": "string",
+						"default": "Successful"
+					},
+					"data": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/GetProfileResponse"
+							}
+						],
+						"nullable": true,
+						"default": null
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RegisterRequest": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"dateOfBirth": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"phoneNumber": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password",
+					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokenResponse": {
+				"properties": {
+					"accessToken": {
+						"type": "string",
+						"example": "string"
+					},
+					"refreshToken": {
+						"type": "string",
+						"example": "string"
+					},
+					"expireAt": {
+						"type": "string",
+						"example": "string"
+					}
+				},
+				"required": [
+					"accessToken",
+					"refreshToken",
+					"expireAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseResponse_TokenResponse_": {
+				"properties": {
+					"statusCode": {
+						"type": "number",
+						"format": "double",
+						"default": 200
+					},
+					"message": {
+						"type": "string",
+						"default": "Successful"
+					},
+					"data": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/TokenResponse"
+							}
+						],
+						"nullable": true,
+						"default": null
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LoginRequest": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseResponse__accessToken-string__": {
+				"properties": {
+					"statusCode": {
+						"type": "number",
+						"format": "double",
+						"default": 200
+					},
+					"message": {
+						"type": "string",
+						"default": "Successful"
+					},
+					"data": {
+						"properties": {
+							"accessToken": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"accessToken"
+						],
+						"type": "object",
+						"nullable": true,
+						"default": null
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"bearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		}
+	},
+	"info": {
+		"title": "",
+		"contact": {}
+	},
+	"paths": {
+		"/api/users/confirm-email": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"202": {
+						"description": "Email confirmed successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BaseResponse_void_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ConfirmEmailRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/users/resend-email": {
+			"post": {
+				"operationId": "ResendEmail",
+				"responses": {
+					"201": {
+						"description": "Email re-send successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BaseResponse_void_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/users/forgot-password": {
+			"post": {
+				"operationId": "ForgotPassword",
+				"responses": {
+					"201": {
+						"description": "Forgot password successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BaseResponse_void_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/users/recover-password": {
+			"put": {
+				"operationId": "RecoverPassword",
+				"responses": {
+					"202": {
+						"description": "Recover password successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BaseResponse_void_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RecoveryPasswordRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/users/profile": {
+			"get": {
+				"operationId": "GetProfile",
+				"responses": {
+					"200": {
+						"description": "Get profile successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BaseResponse_GetProfileResponse_"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"statusCode": 200,
+											"message": "Get profile successfully",
+											"data": {
+												"email": "string@gmail.com",
+												"phoneNumber": "0123456789",
+												"dateOfBirth": "2025-06-30T09:37:05.820Z",
+												"name": "string"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/api/auths/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"201": {
+						"description": "Register successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BaseResponse_void_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Authentications"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/auths/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Login successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BaseResponse_TokenResponse_"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"statusCode": 200,
+											"message": "Login successfully",
+											"data": {
+												"accessToken": "access-token-example",
+												"refreshToken": "refresh-token-example",
+												"expireAt": "1751366538"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Authentications"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/auths/logout": {
+			"post": {
+				"operationId": "Logout",
+				"responses": {
+					"202": {
+						"description": "Logout successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BaseResponse_void_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Authentications"
+				],
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/api/auths/access-token": {
+			"post": {
+				"operationId": "RenewToken",
+				"responses": {
+					"201": {
+						"description": "Access token",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BaseResponse__accessToken-string__"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"statusCode": 201,
+											"message": "Refresh accessToken successfully",
+											"data": {
+												"accessToken": "access-token-example"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Authentications"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"refreshToken": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"refreshToken"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

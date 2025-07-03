@@ -1,0 +1,23 @@
+{
+  "entryFile": "src/app.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/api/controllers/**/*.ts"],
+  "validateRequest": true,
+  "spec": {
+    "outputDirectory": "build",
+    "specVersion": 3,
+    "securityDefinitions": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "basePath": "/"
+  },
+  "routes": {
+    "routesDir": "build",
+    "middlewareTemplate": "tools/tsoa/custom-route.ts.hbs",
+    "authenticationModule": "./src/api/common/auth/express.authentication"
+  }
+}

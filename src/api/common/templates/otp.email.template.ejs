@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify Your Email</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .otp-box {
+            background-color: #f0f8ff;
+            color: #1a73e8;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            margin: 30px 0;
+            letter-spacing: 2px;
+        }
+        .footer {
+            font-size: 13px;
+            color: #888;
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h2>👋 Welcome, <%= email %>!</h2>
+    </div>
+    <p>Please use the following OTP code:</p>
+
+    <div class="otp-box">
+        <%= otp %>
+    </div>
+
+    <p>This code will expire in 5 minutes. If you didn’t request this, please ignore this email.</p>
+
+    <div class="footer">
+        &copy; <%= new Date().getFullYear() %> Shopee. All rights reserved.
+    </div>
+</div>
+</body>
+</html>
